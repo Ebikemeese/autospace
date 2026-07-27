@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How it works | Autospace | Ebikeme Ese{% endblock %}
+
+{% block content %}
+<div class="relative min-h-[calc(100vh-4rem)] py-12 px-4 sm:px-6 lg:px-8 bg-neutral-900 text-white overflow-hidden flex items-center justify-center">
+  
+  <!-- 3D PARKING SLOT SCENE BACKGROUND CANVAS -->
+  <div class="absolute inset-0 -z-10 opacity-40">
+    <canvas id="how-it-works-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <div class="max-w-3xl mx-auto space-y-6 bg-black/60 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-white/10 shadow-2xl my-8">
+    <div class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-black bg-yellow rounded-full">Guide</div>
+    <h1 class="text-3xl sm:text-4xl font-bold font-playfair">Welcome to AutoSpace!</h1>
+    
+    <p class="text-gray-300 leading-relaxed text-base">
+      Are you tired of wasting precious time circling the city blocks like a predator stalking its prey, only instead of a delicious dinner, you're hunting for a tiny patch of asphalt to park your car? You're not alone, and that's exactly why AutoSpace exists. Let's walk you through how it works, step by step.
+    </p>
+
+    <div class="space-y-6 border-t border-white/10 pt-6">
+      <div>
+        <h2 class="text-xl font-bold text-yellow mb-2">Step 1: Unleash the Power of AutoSpace</h2>
+        <p class="text-gray-300 leading-relaxed">
+          First, sign up and create your account. It's as easy as pie - a pie that you don't have to fight over a parking spot for. With just a few clicks, you'll be ready to roll, without worrying about where to leave your precious four-wheeled friend.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-yellow mb-2">Step 2: Destination? Known!</h2>
+        <p class="text-gray-300 leading-relaxed">
+          Next, just type in your destination. Whether you're heading to the city center for some retail therapy, or to that new hipster café on the outskirts for a cup of artisanal coffee, AutoSpace has got you covered!
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-yellow mb-2">Step 3: Choose Your Spot</h2>
+        <p class="text-gray-300 leading-relaxed">
+          AutoSpace will present you with a list of available parking spots near your destination. You can select based on distance, price, or even spot dimensions. Choose the spot that suits your needs, and voila! No more parking woes.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-yellow mb-2">Step 4: Park and Enjoy</h2>
+        <p class="text-gray-300 leading-relaxed">
+          Now, all that's left to do is to drive to your reserved spot and park your car. No more circling, no more stalking, no more frustration. Just smooth, easy parking.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-yellow mb-2">Step 5: Walk Away Like a Boss</h2>
+        <p class="text-gray-300 leading-relaxed">
+          Once your car is comfortably parked, you're free to walk away with swagger, knowing you've outsmarted the concrete jungle. Now you can enjoy your day, while your car enjoys its own little vacation spot.
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-6 text-sm text-gray-400 italic">
+      <p class="mb-2">Happy parking! 🚗✨</p>
+      <p>Remember, AutoSpace is not responsible for any increase in swagger, coolness, or overall happiness that may result from using our service. Proceed with caution and enjoy!</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('how-it-works-canvas');
+    if (!canvas) return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    // Wireframe Parking Grid
+    const grid = new THREE.GridHelper(200, 20, 0xeedd00, 0x444444);
+    grid.position.y = -2;
+    scene.add(grid);
+
+    // Car in parking slot
+    const carGeo = new THREE.BoxGeometry(12, 5, 24);
+    const carMat = new THREE.MeshBasicMaterial({ color: 0xedd000, wireframe: true });
+    const car = new THREE.Mesh(carGeo, carMat);
+    car.position.set(0, 2.5, 0);
+    scene.add(car);
+
+    let angle = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      angle += 0.003;
+      camera.position.x = 80 * Math.sin(angle);
+      camera.position.z = 80 * Math.cos(angle);
+      camera.position.y = 40;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  });
+</script>
+{% endblock %}

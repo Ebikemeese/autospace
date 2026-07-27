@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Cookie Policy | Autospace | Ebikeme Ese{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8 min-h-[calc(100vh-16rem)]">
+  <div class="bg-white p-8 sm:p-12 rounded-3xl border border-gray-200 shadow-xl space-y-8">
+    <div class="border-b border-gray-200 pb-6">
+      <span class="inline-block px-3 py-1 text-xs font-bold text-black bg-yellow rounded-full mb-2">Legal Information</span>
+      <h1 class="text-3xl sm:text-4xl font-bold font-playfair text-gray-900">Cookie Policy</h1>
+      <p class="text-sm text-gray-500 mt-2">Last updated: July 27, 2026</p>
+    </div>
+
+    <div class="prose prose-gray max-w-none space-y-6 text-sm leading-relaxed text-gray-700">
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold text-gray-900 font-playfair">1. What Are Cookies</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cookies are small text files placed on your device to ensure optimal performance, security, and session management.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold text-gray-900 font-playfair">2. How We Use Cookies</h2>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. We use essential session cookies to remember your authentication status and active preferences.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold text-gray-900 font-playfair">3. Types of Cookies We Use</h2>
+        <ul class="list-disc pl-5 space-y-1 text-gray-600">
+          <li><strong>Essential Cookies:</strong> Required for account authentication and CSRF security.</li>
+          <li><strong>Analytics Cookies:</strong> Help us measure usage patterns across parking garages.</li>
+          <li><strong>Preference Cookies:</strong> Remember map view states and search filter selections.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

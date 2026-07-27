@@ -46,6 +46,22 @@ Autospace | Ebikeme Ese{% endblock %} {% block content %}
       {% endif %}
       <label class="text-sm block select-none">
         <div class="flex items-baseline justify-between">
+          <div class="mb-1 font-semibold capitalize text-gray-200">Select Role</div>
+        </div>
+        <select
+          name="role"
+          required
+          class="block w-full px-3 py-2 border border-gray-600 rounded appearance-none text-black bg-white focus:outline-none focus:ring-2 focus:ring-yellow focus:border-yellow sm:text-sm transition-all"
+        >
+          <option value="CUSTOMER" selected>Customer (Find & Book Parking)</option>
+          <option value="MANAGER">Manager (Manage Garages & Valets)</option>
+          <option value="VALET">Valet (Handle Pickups & Returns)</option>
+          <option value="ADMIN">Admin (System & Garage Verifications)</option>
+        </select>
+      </label>
+
+      <label class="text-sm block select-none">
+        <div class="flex items-baseline justify-between">
           <div class="mb-1 font-semibold capitalize text-gray-200">Email</div>
         </div>
         <input

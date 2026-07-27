@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQs | Autospace | Ebikeme Ese{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8 min-h-[calc(100vh-16rem)]">
+  <div class="mb-8 text-center sm:text-left">
+    <h1 class="text-3xl font-bold font-playfair text-gray-900 mb-2">Frequently Asked Questions</h1>
+    <p class="text-gray-600">Got questions? We've got answers (and a touch of humor).</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- FAQ ITEM 1 -->
+    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm" x-data="{ open: false }">
+      <button @click="open = !open" class="w-full px-6 py-4 text-left font-semibold text-gray-900 flex justify-between items-center hover:bg-gray-50 transition-colors">
+        <span>Where are all the FAQs?</span>
+        <svg class="w-5 h-5 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div x-show="open" x-cloak class="px-6 py-4 border-t border-gray-100 text-gray-700 bg-gray-50/50 leading-relaxed">
+        Oh, the FAQs? They're crafted in an ultra-sophisticated code language that's, um, totally ahead of its time. Yep, so advanced that we're, uh, patiently awaiting a universal translator update... any day now! Trust me! 😉👽 /s
+      </div>
+    </div>
+
+    <!-- FAQ ITEM 2 -->
+    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm" x-data="{ open: false }">
+      <button @click="open = !open" class="w-full px-6 py-4 text-left font-semibold text-gray-900 flex justify-between items-center hover:bg-gray-50 transition-colors">
+        <span>Is it true that this site is powered by a hamster running on a wheel?</span>
+        <svg class="w-5 h-5 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div x-show="open" x-cloak class="px-6 py-4 border-t border-gray-100 text-gray-700 bg-gray-50/50 leading-relaxed">
+        Not quite! In reality, it's powered by the neural firings in the developer's brain. /s
+      </div>
+    </div>
+
+    <!-- FAQ ITEM 3 -->
+    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm" x-data="{ open: false }">
+      <button @click="open = !open" class="w-full px-6 py-4 text-left font-semibold text-gray-900 flex justify-between items-center hover:bg-gray-50 transition-colors">
+        <span>How do I reserve a parking spot?</span>
+        <svg class="w-5 h-5 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div x-show="open" x-cloak class="px-6 py-4 border-t border-gray-100 text-gray-700 bg-gray-50/50 leading-relaxed">
+        Simply head to the Search page, select your preferred location and time slot, pick your spot, and click confirm!
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
