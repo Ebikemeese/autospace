@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings - Autospace{% endblock %}
+
+{% block content %}
+<main class="max-w-5xl mx-auto py-12 px-6">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-black font-playfair">My Bookings</h1>
+      <a href="/search" class="px-4 py-2 bg-yellow hover:bg-yellow-400 text-black font-bold rounded-md shadow text-sm transition-colors">
+        New Booking
+      </a>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl p-8 text-center space-y-4 shadow-sm">
+      <div class="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mx-auto text-black font-bold">
+        P
+      </div>
+      <h2 class="text-xl font-bold text-gray-900">No active bookings yet</h2>
+      <p class="text-sm text-gray-500 max-w-md mx-auto">You haven't reserved any parking spots yet. Search for available slots or garages to get started.</p>
+      <a href="/search" class="inline-block px-6 py-2.5 bg-black text-white hover:bg-gray-800 font-semibold rounded-md text-sm transition-colors">
+        Explore Parking Spots
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}

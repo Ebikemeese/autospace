@@ -1,0 +1,281 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Autospace - Parking Management{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              yellow: {
+                DEFAULT: "hsl(52, 100%, 50%)",
+                500: "hsl(52, 100%, 50%)",
+                400: "hsl(52, 100%, 55%)",
+              },
+              primary: "hsl(52, 100%, 50%)",
+              gray: {
+                DEFAULT: "#888888",
+              },
+            },
+            fontFamily: {
+              playfair: ["Playfair Display", "serif"],
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Three.js & OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Alpine.js for Interactive Header / Mobile Drawer -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <style>
+      /* Exact Next.js park-car keyframe animation */
+      @keyframes parkCar {
+        0% {
+          transform: translateX(-150%) translateY(150%) rotate(90deg);
+        }
+        30% {
+          transform: translateY(-10%) rotate(0deg);
+        }
+        40%,
+        60% {
+          transform: translateX(0%) rotate(0deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(150%) rotate(-90deg);
+        }
+      }
+      .animate-park-car {
+        animation: parkCar 5s ease-in-out infinite;
+      }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body
+    class="bg-white text-gray-900 font-sans antialiased min-h-screen flex flex-col selection:bg-yellow selection:text-black"
+    x-data="{ mobileMenuOpen: false }"
+  >
+    <!-- HEADER -->
+    <header class="z-40">
+      <nav
+        class="fixed top-0 w-full z-50 shadow-md shadow-gray-300/10 bg-white/50 backdrop-blur-md border-b border-gray-100"
+      >
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-50 flex items-center justify-between h-16 py-2"
+        >
+          <div
+            class="relative flex items-center justify-between w-full gap-4 md:gap-16"
+          >
+            <!-- BRAND LOGO (FULL LOGO SHOWN ON ALL SCREEN SIZES) -->
+            <a
+              href="{% url 'home' %}"
+              aria-label="Home"
+              class="w-auto flex items-center"
+            >
+              <div class="grid place-items-center h-10">
+                <div class="text-lg sm:text-xl">
+                  <div
+                    class="flex items-center gap-2 font-medium tracking-tighter font-playfair"
+                  >
+                    <!-- BRAND ICON (YELLOW BORDER BOX WITH BLACK PARKING CAR ANIMATION) -->
+                    <div class="inline-block overflow-hidden">
+                      <div
+                        class="flex items-center justify-center border-2 border-yellow-500 w-4 h-6 relative"
+                      >
+                        <div
+                          class="bg-black shadow w-2 h-4 animate-park-car"
+                        ></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex gap-1 items-center">
+                        <div class="font-semibold text-gray-900">Autospace</div>
+                        <span class="text-xs text-gray-500 font-sans"
+                          >{% block app_role %}{% endblock %}</span
+                        >
+                      </div>
+                      <div
+                        class="text-[10px] sm:text-xs text-gray font-sans tracking-normal leading-none"
+                      >
+                        Ebikeme Ese
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- DESKTOP NAVIGATION MENU -->
+            <div
+              class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700"
+            >
+              <a href="/about" class="hover:text-black transition-colors"
+                >About</a
+              >
+              <a href="/search" class="hover:text-black transition-colors"
+                >Search</a
+              >
+              <a href="/bookings" class="hover:text-black transition-colors"
+                >Bookings</a
+              >
+            </div>
+
+            <!-- RIGHT ACTIONS / LOGIN / REGISTER -->
+            <div class="flex items-center gap-2 sm:gap-3">
+              <a
+                href="{% url 'register' %}"
+                class="hidden sm:inline-block px-4 py-2 text-sm font-medium text-gray-800 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+              >
+                Create account
+              </a>
+              <a
+                href="{% url 'login' %}"
+                class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-black bg-yellow hover:bg-yellow-400 transition-colors shadow-sm rounded-md font-semibold"
+              >
+                Log in
+              </a>
+
+              <!-- MOBILE MENU TOGGLE -->
+              <button
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                type="button"
+                class="p-2 text-gray-600 hover:text-black focus:outline-none md:hidden"
+                aria-label="Toggle Menu"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    x-show="!mobileMenuOpen"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                  <path
+                    x-show="mobileMenuOpen"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOBILE DRAWER MENU -->
+        <div
+          x-show="mobileMenuOpen"
+          x-transition
+          class="border-t border-gray-200 bg-white px-4 pt-2 pb-4 space-y-2 md:hidden"
+        >
+          <a
+            href="/about"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >About</a
+          >
+          <a
+            href="/search"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >Search</a
+          >
+          <a
+            href="/bookings"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >Bookings</a
+          >
+          <a
+            href="/contact"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >Contact</a
+          >
+          <a
+            href="/faqs"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >FAQs</a
+          >
+          <a
+            href="/how-it-works"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded-md"
+            >How it works</a
+          >
+          <div class="pt-2 border-t border-gray-100 flex flex-col gap-2">
+            <a
+              href="{% url 'register' %}"
+              class="block text-center px-4 py-2 text-sm font-medium text-gray-800 border border-gray-300 rounded-md"
+              >Create account</a
+            >
+            <a
+              href="{% url 'login' %}"
+              class="block text-center px-4 py-2 text-sm font-semibold text-black bg-yellow rounded-md"
+              >Log in</a
+            >
+          </div>
+        </div>
+      </nav>
+      <div class="h-16"></div>
+    </header>
+
+    <!-- MAIN CONTENT BLOCK -->
+    <div class="flex-grow">{% block content %}{% endblock %}</div>
+
+    <!-- FOOTER -->
+    <footer class="py-8 mt-8 text-xs bg-gray-50 border-t border-gray-200">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <a
+          target="_blank"
+          href="https://ebikemeese.github.io"
+          rel="noreferrer"
+          class="text-gray-600 hover:text-black"
+        >
+          Made by
+          <span class="font-black px-1 py-0.5 bg-gray-200 rounded"
+            >Ebikeme Ese</span
+          >
+          2026
+        </a>
+        <div class="flex flex-wrap gap-4 text-gray-500">
+          <a href="/privacy" class="hover:text-gray-800">Privacy policy</a>
+          <a href="/cookie-policy" class="hover:text-gray-800">Cookie policy</a>
+          <a href="/cookie-settings" class="hover:text-gray-800"
+            >Cookie settings</a
+          >
+          <a href="/terms" class="hover:text-gray-800">Terms and Conditions</a>
+        </div>
+      </div>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

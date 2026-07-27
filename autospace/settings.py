@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'valet_assignments',
     'valets',
     'verification',
+    'home',
+    'authentication',
 ]
 
 MIDDLEWARE = [

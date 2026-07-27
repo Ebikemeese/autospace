@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Autospace{% endblock %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto py-16 px-6">
+  <div class="space-y-6">
+    <span class="px-3 py-1 bg-yellow font-black text-black inline-block text-sm">About Autospace</span>
+    <h1 class="text-4xl sm:text-5xl font-black font-playfair text-gray-900 tracking-tight">Reinventing Urban Parking</h1>
+    <p class="text-lg text-gray-600 leading-relaxed">
+      Autospace makes finding, booking, and managing parking spots simple, fast, and reliable. Whether you are searching for valet parking, garages, or hourly slots, our platform connects drivers with verified parking options seamlessly.
+    </p>
+    <div class="grid sm:grid-cols-3 gap-6 pt-8">
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg">
+        <div class="text-3xl font-black text-black mb-2">500+</div>
+        <div class="text-sm font-semibold text-gray-500">Verified Garages</div>
+      </div>
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg">
+        <div class="text-3xl font-black text-black mb-2">24/7</div>
+        <div class="text-sm font-semibold text-gray-500">Valet Support</div>
+      </div>
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg">
+        <div class="text-3xl font-black text-black mb-2">100k+</div>
+        <div class="text-sm font-semibold text-gray-500">Bookings Made</div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

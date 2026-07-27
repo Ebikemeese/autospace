@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Parking - Autospace{% endblock %}
+
+{% block content %}
+<main class="max-w-6xl mx-auto py-12 px-6">
+  <div class="space-y-6">
+    <div class="flex items-center gap-2">
+      <span class="px-3 py-1 bg-yellow font-black text-black text-sm">Search</span>
+      <h1 class="text-3xl font-black font-playfair">Find Parking Spots Near You</h1>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col md:flex-row gap-4">
+      <input type="text" placeholder="Enter location or garage name..." class="flex-grow px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow focus:border-yellow outline-none">
+      <button class="px-8 py-3 bg-yellow hover:bg-yellow-400 font-bold text-black rounded-md transition-colors shadow">
+        Search Spots
+      </button>
+    </div>
+
+    <div class="pt-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">Popular Garages & Locations</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center font-bold text-gray-400">Downtown Central Garage</div>
+          <h3 class="font-bold text-gray-900">Central Plaza Valet & Slots</h3>
+          <p class="text-xs text-gray-500 mt-1">245 Main Street • $12/hr</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center font-bold text-gray-400">Airport Express Parking</div>
+          <h3 class="font-bold text-gray-900">Airport Terminal 1 Garage</h3>
+          <p class="text-xs text-gray-500 mt-1">Airport Highway • $25/day</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow">
+          <div class="h-32 bg-gray-100 rounded-lg mb-4 flex items-center justify-center font-bold text-gray-400">Westside Valet Hub</div>
+          <h3 class="font-bold text-gray-900">Westside Commercial Complex</h3>
+          <p class="text-xs text-gray-500 mt-1">88 West Ave • $8/hr</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
