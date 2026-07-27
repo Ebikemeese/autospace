@@ -144,20 +144,32 @@
               >
             </div>
 
-            <!-- RIGHT ACTIONS / LOGIN / REGISTER -->
+            <!-- RIGHT ACTIONS / LOGIN / REGISTER / USER PROFILE -->
             <div class="flex items-center gap-2 sm:gap-3">
-              <a
-                href="{% url 'register' %}"
-                class="hidden sm:inline-block px-4 py-2 text-sm font-medium text-gray-800 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-              >
-                Create account
-              </a>
-              <a
-                href="{% url 'login' %}"
-                class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-black bg-yellow hover:bg-yellow-400 transition-colors shadow-sm rounded-md font-semibold"
-              >
-                Log in
-              </a>
+              {% if request.user.is_authenticated %}
+                <span class="text-sm font-medium text-gray-700 hidden sm:inline">
+                  Hello, <span class="font-bold text-black">{{ request.user.display_name|default:request.user.email }}</span>
+                </span>
+                <a
+                  href="{% url 'logout' %}"
+                  class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-black bg-yellow hover:bg-yellow-400 transition-colors shadow-sm rounded-md font-semibold"
+                >
+                  Log out
+                </a>
+              {% else %}
+                <a
+                  href="{% url 'register' %}"
+                  class="hidden sm:inline-block px-4 py-2 text-sm font-medium text-gray-800 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Create account
+                </a>
+                <a
+                  href="{% url 'login' %}"
+                  class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-black bg-yellow hover:bg-yellow-400 transition-colors shadow-sm rounded-md font-semibold"
+                >
+                  Log in
+                </a>
+              {% endif %}
 
               <!-- MOBILE MENU TOGGLE -->
               <button

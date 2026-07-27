@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'authentication',
 ]
 
+AUTH_USER_MODEL = 'authentication.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -143,4 +145,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 STATIC_ROOT = BASE_DIR / 'autospace' / 'staticfiles'
