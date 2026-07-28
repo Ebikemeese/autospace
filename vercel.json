@@ -1,12 +1,13 @@
 {
-  "builds": [
-    {
-      "src": "autospace/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.11.3"
-      }
+  "functions": {
+    "autospace/wsgi.py": {
+      "runtime": "python3.11"
     }
-  ],
-  "routes": "/(.*)*"
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/autospace/wsgi.py"
+    }
+  ]
 }
