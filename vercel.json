@@ -8,6 +8,5 @@
       }
     }
   ],
-  "routes": "/(.*)*",
-  "dest": "autospace/wsgi.py"
+  "routes": "/(.*)*"
 }
