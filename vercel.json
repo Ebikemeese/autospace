@@ -1,8 +1,5 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/autospace/wsgi.py"
-    }
-  ]
+  "version": 2,
+  "builds": [{ "src": "autospace/wsgi.py", "use": "@vercel/python" }],
+  "routes": [{ "src": "/(.*)", "dest": "autospace/wsgi.py" }]
 }
