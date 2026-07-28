@@ -37,15 +37,16 @@ else:
     if not ALLOWED_HOSTS:
         ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
-    # Database Configuration
-    # Uses DATABASE_URL environment variable in production (e.g. Neon, Supabase, ElephantSQL)
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
+    DATABASE_URL = os.getenv('DATABASE_URL')
+
+    if DATABASE_URL is not None:
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=DATABASE_URL,
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
 
 # ==============================================================================
 # PRODUCTION SECURITY SETTINGS
