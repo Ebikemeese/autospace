@@ -1,0 +1,7 @@
+services:
+  - type: web
+    plan: free
+    name: autospace
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn autospace.wsgi:application"
