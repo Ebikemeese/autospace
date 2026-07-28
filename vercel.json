@@ -1,7 +1,7 @@
 {
   "functions": {
     "autospace/wsgi.py": {
-      "runtime": "python3.11"
+      "runtime": "python3.11.3"
     }
   },
   "rewrites": [
