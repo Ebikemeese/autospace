@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "src": "autospace/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.11.3"
+      }
+    }
+  ],
+  "routes": "/(.*)*",
+  "dest": "autospace/wsgi.py"
+}
