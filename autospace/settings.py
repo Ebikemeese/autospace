@@ -38,15 +38,22 @@ else:
     if not ALLOWED_HOSTS:
         ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
-    DATABASE_URL = config("DATABASE_URL", cast=str)
+    DATABASE_URL = config("DATABASE_URL", default="", cast=str)
 
-    if DATABASE_URL is not None:
+    if DATABASE_URL:
         DATABASES = {
             'default': dj_database_url.config(
                 default = DATABASE_URL,
                 conn_max_age = 600,
                 conn_health_checks = True,
             )
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
         }
 
 # ==============================================================================

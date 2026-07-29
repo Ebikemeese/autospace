@@ -3,13 +3,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.conf import settings
 from garages.models import Garage
 from garages.views import get_slot_counts
+from garages.seeder import seed_global_parking_data
 from slots.models import Slot, SlotType
 from bookings.models import Booking, BookingStatus
 from customers.models import Customer
 import json
 from datetime import datetime, timedelta
+
+def check_auto_seed():
+    if not settings.DEBUG and not Garage.objects.exists():
+        try:
+            seed_global_parking_data()
+        except Exception:
+            pass
 
 def get_per_page(request, default=6):
     try:
@@ -19,7 +28,9 @@ def get_per_page(request, default=6):
         return default
 
 def home(request):
+    check_auto_seed()
     popular_garages = list(Garage.objects.select_related('address', 'company', 'verification').prefetch_related('slots').order_by('-id')[:6])
+
     for g in popular_garages:
         g.slot_counts = get_slot_counts(g)
 
@@ -49,6 +60,7 @@ def about(request):
 
 @login_required
 def search(request):
+    check_auto_seed()
     location_query = request.GET.get('location', '').strip()
     slot_type = request.GET.get('type', '').strip()
     max_price = request.GET.get('max_price', '').strip()
